@@ -1,0 +1,100 @@
+/* Reset dasar */
+body {
+font-family: Arial, sans-serif;
+background: #f4f6f9;
+margin: 0;
+padding: 0;
+}
+
+/* Container utama */
+.container {
+max-width: 600px;
+margin: 50px auto;
+background: #ffffff;
+padding: 25px;
+border-radius: 12px;
+box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+/* Judul */
+h1 {
+text-align: center;
+color: #333;
+margin-bottom: 10px;
+}
+
+/* Status koneksi */
+#status {
+text-align: center;
+font-size: 14px;
+margin-bottom: 15px;
+}
+
+.online {
+color: green;
+font-weight: bold;
+}
+
+.offline {
+color: red;
+font-weight: bold;
+}
+
+/* Tombol kirim */
+button {
+display: block;
+margin: 10px auto 20px auto;
+padding: 10px 20px;
+border: none;
+background: #2196f3;
+color: white;
+border-radius: 6px;
+cursor: pointer;
+transition: 0.3s;
+}
+
+button:hover {
+background: #1976d2;
+}
+
+/* List notifikasi */
+#notif {
+list-style: none;
+padding: 0;
+margin: 0;
+}
+
+/* Item notifikasi */
+#notif li {
+background: #e3f2fd;
+margin-bottom: 10px;
+padding: 12px;
+border-radius: 6px;
+border-left: 5px solid #2196f3;
+animation: fadeIn 0.3s ease;
+transition: 0.2s;
+}
+
+/* Hover efek */
+#notif li:hover {
+background: #bbdefb;
+}
+
+/* Pesan kosong */
+#empty {
+text-align: center;
+color: #888;
+margin-top: 20px;
+}
+
+/* Animasi */
+@keyframes fadeIn {
+from {
+opacity: 0;
+transform: translateY(-8px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}

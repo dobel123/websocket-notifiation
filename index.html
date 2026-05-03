@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Notifikasi Real-Time</title>
+</head>
+<body>
+<link rel="stylesheet" href="style.css">
+  <h1>🔔 Notifikasi</h1>
+<button onclick="sendNotif()">Kirim Notifikasi</button>
+  <!-- Status koneksi -->
+
+  <p id="status">Disconnected</p>
+
+  <!-- List notifikasi -->
+
+  <ul id="notif"></ul>
+
+  <!-- Pesan kosong -->
+
+  <p id="empty">Belum ada notifikasi</p>
+
+<script>
+  const notifList = document.getElementById("notif");
+  const emptyText = document.getElementById("empty");
+  const statusText = document.getElementById("status");
+
+  // 🔹 Ambil data awal (HTTP)
+  fetch("http://localhost:3000/history")
+    .then(res => res.json())
+    .then(data => {
+      if (data.length > 0) {
+        emptyText.style.display = "none";
+      }
+
+      data.reverse().forEach(item => {
+        addNotification(item);
+      });
+    })
+    .catch(() => {
+      emptyText.textContent = "Gagal ambil data awal";
+    });
+
+  // 🔹 WebSocket (real-time)
+  const ws = new WebSocket("ws://localhost:3000");
+
+  ws.onopen = function() {
+    statusText.textContent = "Connected";
+  };
+
+  ws.onclose = function() {
+    statusText.textContent = "Disconnected";
+  };
+
+  ws.onmessage = function(event) {
+    emptyText.style.display = "none";
+    addNotification(event.data);
+  };
+
+  // 🔹 Fungsi tambah notifikasi ke atas
+  function addNotification(message) {
+    const li = document.createElement("li");
+    li.textContent = message;
+
+    notifList.insertBefore(li, notifList.firstChild);
+  }
+
+  function sendNotif() {
+  fetch("http://localhost:3000/send")
+    .then(res => res.text())
+    .then(data => {
+      console.log(data);
+    });
+}
+</script>
+
+</body>
+</html>
